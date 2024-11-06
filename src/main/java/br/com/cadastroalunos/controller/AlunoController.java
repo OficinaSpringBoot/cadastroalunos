@@ -1,11 +1,20 @@
 package br.com.cadastroalunos.controller;
 import br.com.cadastroalunos.model.Aluno;
 import br.com.cadastroalunos.service.AlunoService;
+
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.util.List;
 
 @RestController
@@ -15,14 +24,18 @@ public class AlunoController {
     private AlunoService service;
 
     @PostMapping("/")
-    public ResponseEntity<Aluno>createAluno(@RequestBody Aluno aluno){
+    public ResponseEntity<?>createAluno(@RequestBody Aluno aluno){
+        if (service.cpfJaCadastrado(aluno.getCpfAluno())) {
+            return ResponseEntity
+                        .status(HttpStatus.BAD_REQUEST)
+                        .body("Já existe um aluno com esse CPF cadastrado.");
+        }
         Aluno newAluno = service.createAluno(aluno);
         return new ResponseEntity<>(newAluno, HttpStatus.CREATED);
     }
-
     
     @GetMapping("/")
-    public ResponseEntity<List<Aluno>> getAllAluno(){
+    public ResponseEntity<List<Aluno>> getAllAlunos(){
         List<Aluno> allAluno = service.getAllAluno();
         return new ResponseEntity<>(allAluno, HttpStatus.OK);
     }

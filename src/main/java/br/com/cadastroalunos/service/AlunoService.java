@@ -53,4 +53,10 @@ public class AlunoService {
             throw new RuntimeException("Aluno with id: " + matricula + " not found");
         }
     }
+
+    public boolean cpfJaCadastrado(String cpfAluno) {
+        return repository
+                .findByCpfAluno(cpfAluno)
+                .isPresent();
+    }
 }
