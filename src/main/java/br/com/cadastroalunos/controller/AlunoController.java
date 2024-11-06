@@ -14,20 +14,20 @@ public class AlunoController {
     @Autowired
     private AlunoService service;
 
-    @PostMapping("/create")
+    @PostMapping("/")
     public ResponseEntity<Aluno>createAluno(@RequestBody Aluno aluno){
         Aluno newAluno = service.createAluno(aluno);
         return new ResponseEntity<>(newAluno, HttpStatus.CREATED);
     }
 
     
-    @GetMapping("/selectAll")
+    @GetMapping("/")
     public ResponseEntity<List<Aluno>> getAllAluno(){
         List<Aluno> allAluno = service.getAllAluno();
         return new ResponseEntity<>(allAluno, HttpStatus.OK);
     }
 
-    @GetMapping("/select/{matricula}")
+    @GetMapping("/{matricula}")
     public ResponseEntity<?> getAlunoById(@PathVariable Long matricula){
         Optional<Aluno> optionalAluno = service.getAlunoById(matricula);
 
@@ -38,12 +38,12 @@ public class AlunoController {
         }
     }
 
-    @DeleteMapping("/delete/{matricula}")
+    @DeleteMapping("/{matricula}")
     public void deleteAluno(@PathVariable Long matricula){
         service.deleteAluno(matricula);
     }
 
-    @PutMapping("/edit/{matricula}")
+    @PutMapping("/{matricula}")
     public ResponseEntity<Aluno> updateAluno(@PathVariable Long matricula, @RequestBody Aluno aluno){
         try {
             Aluno updatedAluno = service.updateAluno(matricula, aluno);
