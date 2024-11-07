@@ -43,29 +43,5 @@ public class CursoController {
         service.deleteCurso(idCurso);
     }
 
-    
-    // @GetMapping("/{idCurso}")
-    // public ResponseEntity<?> getAlunoById(@PathVariable Long idCurso){
-    //     Optional<Curso> optCurso = service.getCursoById(idCurso);
-    //     if(optCurso.isPresent()){
-    //         return new ResponseEntity<>(optCurso.get(), HttpStatus.OK);
-    //     } else {
-    //         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não foi possível encontrar o curso!");
-    //     }
-    // }
-
-    // @PutMapping("/{idCurso}")
-    // public ResponseEntity<Curso> updateAluno(@PathVariable Long idCurso, @RequestBody Curso curso){
-    //     try {
-    //         var currCurso = service.updateCurso(idCurso, curso);
-    //         return new ResponseEntity<>(currCurso, HttpStatus.OK);
-    //     }
-    //     catch (Exception e){
-    //         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    //     }
-    // }
-
-
-
 
 }

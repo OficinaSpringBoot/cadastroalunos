@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import br.com.cadastroalunos.model.Curso;
+import br.com.cadastroalunos.model.Professor;
 
 import org.springframework.stereotype.Service;
 import br.com.cadastroalunos.repository.CursoRepository;
@@ -28,6 +29,11 @@ public class CursoService {
     public Optional<Curso> getCursoById(Long idCurso) {
         return repository.findById(idCurso);
     }
+
+    public List<Curso> findAllById(List<Curso> ids){
+        return repository.findAllById(ids);
+    }
+
 
     // Delete Curso
     public void deleteCurso(Long idCurso) {

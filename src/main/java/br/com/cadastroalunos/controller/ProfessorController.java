@@ -2,6 +2,7 @@ package br.com.cadastroalunos.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.cadastroalunos.model.Curso;
 import br.com.cadastroalunos.model.Professor;
+import br.com.cadastroalunos.service.CursoService;
 import br.com.cadastroalunos.service.ProfessorService;
 
 @RestController
@@ -25,27 +28,30 @@ public class ProfessorController {
     @Autowired
     private ProfessorService service;
 
+    @Autowired 
+    private CursoService cursoService;
+
     @PostMapping("/")
-    public ResponseEntity<?>createProfessor(@RequestBody Professor Professor){
+    public ResponseEntity<?>createProfessor(@RequestBody Professor professor){
         
-        if (Professor.getCursos() == null) {
+        if (professor.getCursos() == null) {
             return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body("O identificador do curso não pode ser nulo.");
         }
 
-        // if (cursoSerivce.getCursoById(Professor.getCurso().getIdCurso()).isEmpty()){
-        //     return ResponseEntity
-        //         .status(HttpStatus.BAD_REQUEST)
-        //         .body("Não existe nenhum curso com esse identificador.");
-        // }
+        if (cursoService.findAllById(professor.getCursos()).isEmpty()){
+            return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body("Não existe nenhum curso com esse identificador.");
+        }
 
-        if (service.cpfJaCadastrado(Professor.getCpfProfessor())) {
+        if (service.cpfJaCadastrado(professor.getCpfProfessor())) {
             return ResponseEntity
                         .status(HttpStatus.BAD_REQUEST)
                         .body("Já existe um Professor com esse CPF cadastrado.");
         }
-        Professor newProfessor = service.createProfessor(Professor);
+        Professor newProfessor = service.createProfessor(professor);
         return new ResponseEntity<>(newProfessor, HttpStatus.CREATED);
     }
     

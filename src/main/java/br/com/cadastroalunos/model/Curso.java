@@ -33,10 +33,5 @@ public class Curso {
     Boolean ativo;
 
     @ManyToMany
-    @JoinTable(
-        name = "course_like", 
-        joinColumns = @JoinColumn(name = "id_professor"), 
-        inverseJoinColumns = @JoinColumn(name = "id_curso")
-    )
     List<Professor> professores;
 }
