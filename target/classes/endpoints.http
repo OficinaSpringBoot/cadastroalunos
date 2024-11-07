@@ -1,0 +1,48 @@
+### Listar Todos os Alunos
+GET http://localhost:8080/api/aluno/ HTTP/1.1
+content-type: application/json
+
+### Listar um aluno em específico
+
+GET http://localhost:8080/api/aluno/1 HTTP/1.1
+content-type: application/json
+
+
+### Cadastrar um aluno
+POST http://localhost:8080/api/aluno/ HTTP/1.1
+content-type: application/json
+
+{
+  "nomeAluno": "John Doe",
+  "telefoneAluno": "2002",
+  "emailAluno": "johndoe@example.com",
+  "dataNasc": "08/10/2003",
+  "cpfAluno": "123321414142",
+  "curso": {
+    "idCurso": 1
+  }
+}
+
+### Alterar um aluno
+PUT http://localhost:8080/api/aluno/352 HTTP/1.1
+content-type: application/json
+
+{
+  "nomeAluno": "Jane Doe",
+  "telefoneAluno": "2002",
+  "emailAluno": "janendoe@example.com",
+  "dataNasc": "08/10/2003",
+  "cpfAluno": "123321414142",
+  "curso": {
+    "idCurso": 2
+  }
+}
+
+
+
+
+
+
+
+
+
