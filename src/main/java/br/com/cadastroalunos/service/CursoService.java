@@ -30,11 +30,6 @@ public class CursoService {
         return repository.findById(idCurso);
     }
 
-    public List<Curso> findAllById(List<Curso> ids){
-        return repository.findAllById(ids);
-    }
-
-
     // Delete Curso
     public void deleteCurso(Long idCurso) {
         // Verifica se o Curso existe
