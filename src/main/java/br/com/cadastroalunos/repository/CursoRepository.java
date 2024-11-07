@@ -8,5 +8,4 @@ import java.util.List;
 
 public interface CursoRepository extends JpaRepository<Curso, Long>{
     List<Curso> findAllByAtivo(Boolean ativo);
-    List<Curso> findAllById(List<Curso> ids);
 }

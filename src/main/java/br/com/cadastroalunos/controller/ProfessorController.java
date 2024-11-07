@@ -2,7 +2,6 @@ package br.com.cadastroalunos.controller;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.cadastroalunos.model.Curso;
 import br.com.cadastroalunos.model.Professor;
-import br.com.cadastroalunos.service.CursoService;
 import br.com.cadastroalunos.service.ProfessorService;
 
 @RestController
@@ -28,8 +25,6 @@ public class ProfessorController {
     @Autowired
     private ProfessorService service;
 
-    @Autowired 
-    private CursoService cursoService;
 
     @PostMapping("/")
     public ResponseEntity<?>createProfessor(@RequestBody Professor professor){
@@ -38,12 +33,6 @@ public class ProfessorController {
             return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body("O identificador do curso não pode ser nulo.");
-        }
-
-        if (cursoService.findAllById(professor.getCursos()).isEmpty()){
-            return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body("Não existe nenhum curso com esse identificador.");
         }
 
         if (service.cpfJaCadastrado(professor.getCpfProfessor())) {

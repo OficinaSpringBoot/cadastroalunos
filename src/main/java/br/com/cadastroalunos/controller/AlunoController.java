@@ -21,11 +21,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/aluno")
 public class AlunoController {
+    
     @Autowired
     private AlunoService service;
 
     @Autowired
-    private CursoService cursoSerivce;
+    private CursoService cursoService;
 
     @PostMapping("/")
     public ResponseEntity<?>createAluno(@RequestBody Aluno aluno){
@@ -36,7 +37,7 @@ public class AlunoController {
                 .body("O identificador do curso não pode ser nulo.");
         }
 
-        if (cursoSerivce.getCursoById(aluno.getCurso().getIdCurso()).isEmpty()){
+        if (cursoService.getCursoById(aluno.getCurso().getIdCurso()).isEmpty()){
             return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body("Não existe nenhum curso com esse identificador.");
