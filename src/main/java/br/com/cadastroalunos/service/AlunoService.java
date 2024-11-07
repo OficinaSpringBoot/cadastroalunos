@@ -45,7 +45,7 @@ public class AlunoService {
             newAluno.setNomeAluno(aluno.getNomeAluno());
             newAluno.setCpfAluno(aluno.getCpfAluno());
             newAluno.setDataNasc(aluno.getDataNasc());
-            newAluno.setIdTurma(aluno.getIdTurma());
+            newAluno.setCurso(aluno.getCurso());
             newAluno.setTelefoneAluno(aluno.getTelefoneAluno());
             newAluno.setEmailAluno(aluno.getEmailAluno());
             return repository.save(newAluno);

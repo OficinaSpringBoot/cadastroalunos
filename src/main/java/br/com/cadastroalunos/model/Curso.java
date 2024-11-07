@@ -1,10 +1,15 @@
 package br.com.cadastroalunos.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,4 +32,11 @@ public class Curso {
 
     Boolean ativo;
 
+    @ManyToMany
+    @JoinTable(
+        name = "course_like", 
+        joinColumns = @JoinColumn(name = "id_professor"), 
+        inverseJoinColumns = @JoinColumn(name = "id_curso")
+    )
+    List<Professor> professores;
 }
