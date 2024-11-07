@@ -1,6 +1,7 @@
 package br.com.cadastroalunos.controller;
 import br.com.cadastroalunos.model.Aluno;
 import br.com.cadastroalunos.service.AlunoService;
+import br.com.cadastroalunos.service.CursoService;
 
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,24 @@ public class AlunoController {
     @Autowired
     private AlunoService service;
 
+    @Autowired
+    private CursoService cursoSerivce;
+
     @PostMapping("/")
     public ResponseEntity<?>createAluno(@RequestBody Aluno aluno){
+        
+        if (aluno.getCurso() == null) {
+            return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body("O identificador do curso não pode ser nulo.");
+        }
+
+        if (cursoSerivce.getCursoById(aluno.getCurso().getIdCurso()).isEmpty()){
+            return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body("Não existe nenhum curso com esse identificador.");
+        }
+
         if (service.cpfJaCadastrado(aluno.getCpfAluno())) {
             return ResponseEntity
                         .status(HttpStatus.BAD_REQUEST)
